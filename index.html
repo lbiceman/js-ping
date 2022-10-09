@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
 
 <head>
 	<meta charset="UTF-8">
@@ -19,10 +19,17 @@
 		.container {
 			width: calc(100vw - 20px);
 			height: calc(100vh - 60px);
-			padding: 30px 10px;
+			padding: 10px;
 		}
 
-		.form input {
+		.form {
+			margin-top: 10px;
+		}
+
+		.form > .form-con {
+			margin-top: 10px;
+		}
+		.form > .form-con > input {
 			width: calc(100% - 30px);
 			height: 20%;
 			outline: none;
@@ -32,32 +39,75 @@
 			font-size: 16px;
 		}
 
-		.form .btns {
-			margin: 20px 0px;
+		.form > .btns {
+			margin: 10px 0px;
 		}
 
-		.form .btns .btn {
+		.form > .btns > .btn {
 			display: inline-block;
 			padding: 8px 15px;
 			border-radius: 3px;
-			background-color: #1FB2F0;
+			background-color: #33aafa;
 			color: #fff;
 			cursor: pointer;
 		}
 
-		.form .btns .btn:not(:first-child) {
+		.form > .btns > .btn-active {
+			transform: scale(0.7);
+			transition: all .2s ease-out;
+		}
+
+		.form > .btns > .btn:not(:first-child) {
 			margin-left: 15px;
 		}
 
 		.terminal {
+			width: 100%;
 			height: 80%;
 		}
-
+		.terminal > .info > .info-title {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			border-bottom: 2px solid #33aafa;
+			padding-bottom: 10px;
+		}
+		.terminal > .info > .info-title > p {
+			margin: 0;
+			color: #33aafa;
+			font-weight: bold;
+			font-size: 18px;
+		}
+		.terminal > .info > .info-title > span {
+			display: inline-block;
+			width: 20px;
+			height: 20px;
+		}
+		.terminal > .info > .info-title .rotate {
+			transform: rotate(360deg);
+			transition: all .5s linear;
+		}
+		.terminal > .networkInfo {
+			margin-top: 10px;
+		}
+		.terminal > .networkInfo > ul {
+			min-height: 130px;
+		}
+		.terminal ul {
+			list-style-type: none;
+		}
+		.terminal ul li {
+			line-height: 26px;
+			margin-top: 8px;
+		}
+		.terminal ul li .li-value {
+			font-weight: bold;
+		}
 		.dos {
 			width: calc(100% - 20px);
-			height: 90%;
+			height: 80%;
 			padding: 20px 10px 20px 10px;
-			margin-top: 20px;
+			margin-top: 10px;
 			background-color: #000;
 			color: #fff;
 			overflow-y: auto;
@@ -65,76 +115,122 @@
 			border-radius: 3px;
 		}
 
-		.dos .dos-item,
-		.dos .dos-item span {
+		.dos > .dos-item,
+		.dos > .dos-item > span {
 			font-size: 14px;
 			line-height: 23px;
 			margin-top: 7px;
 			color: #ffffff;
+		}
+		.null {
+			height: 2%;
 		}
 	</style>
 </head>
 
 <body>
 	<div class="container">
-		<div class="form">
-			<input type="text" placeholder="请填写IP地址" id="ipAddress" />
-			<div class="btns">
-				<span class="btn" id="ping">PING</span>
-				<span class="btn" id="clear">CLEAR</span>
-			</div>
-		</div>
 		<div class="terminal">
-			<div class="detail" id="net">
+			<div class="info">
+				<div class="info-title">
+					<p>基础信息:</p>
+					<span></span>
+				</div>
+				<ul id="basicInfoList">
+					<!-- <li>
+						<span class="li-label">JavaScript状态:&nbsp;</span>
+						<span class="li-value">暂未开启</span>
+					</li> -->
+				</ul>
+			</div>
+			<div class="info networkInfo">
+				<div class="info-title">
+					<p>网络信息:</p>
+					<span id="networkRefresh">
+						<svg t="1662431048628" class="icon" viewBox="0 0 1036 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2506" width="20" height="20"><path d="M511.144516 868.596627c-176.289052 0-322.915527-126.987183-353.409029-294.455335l-6.408967 1.281179c-3.793396-16.240893-16.951067-29.987988-35.346019-34.579563-26.28055-6.576789-53.234435 7.950066-60.276828 32.417317L4.750187 750.438531c-7.014764 24.439622 8.56405 49.608861 34.815947 56.158021 26.249851 6.54609 53.231365-7.982812 60.249199-32.420387l15.270798-53.103452C190.734042 862.317621 339.715145 958.400956 511.144516 958.400956c197.718107 0 365.571023-127.800711 425.492764-305.296241l-87.510076-21.877263C799.22977 769.635755 666.74641 868.596627 511.144516 868.596627zM985.122551 242.026242c-25.606191-6.956436-52.266387 7.219425-59.545164 31.659047L914.292366 311.528176C841.156672 162.761967 688.116113 60.375066 511.144516 60.375066c-199.51094 0-368.632755 130.128733-427.121867 310.140573l81.459267 40.73168c42.706661-150.673651 181.293019-261.069971 345.662601-261.069971 184.557366 0 336.598154 139.216715 356.880083 318.353628l3.095501-1.238201c1.677199 18.482957 15.036461 34.93158 34.840506 40.312124 25.637913 6.958482 52.297087-7.220449 59.575864-31.657001l52.765761-177.063695C1025.608637 274.414907 1010.760464 248.984724 985.122551 242.026242z" p-id="2507" fill="#33aafa"></path>
+						</svg>
+					</span>
+				</div>
+				<ul id="networkInfoList"></ul>
+			</div>
+			<div class="form info">
+				<div class="info-title">
+					<p>操作:</p>
+					<span></span>
+				</div>
+				<div class="form-con">
+					<input type="text" placeholder="请填写IP地址" id="ipAddress" />
+				</div>
+				<div class="btns">
+					<span class="btn" id="ping">Ping</span>
+					<span class="btn" id="clear">Clear</span>
+				</div>
 			</div>
 			<div class="dos" id="dos">Terminal：</div>
+			<div class="null"></div>
 		</div>
 	</div>
+
+	<script src="https://pv.sohu.com/cityjson?ie=utf-8"></script>
 
 	<script>
 		(function (w, d) {
 			let dosHtml = '';
-			let ip = "";
 			let num = 0;
 			let responseTimes = [];
 
+			function getFlashVersion() {
+				let flashVer = NaN;
+				
+				if (w.ActiveXObject) {
+					let swf = new ActiveXObject('ShockwaveFlash.ShockwaveFlash');
+			
+					if (swf) {
+						flashVer = Number(swf.GetVariable('$version').split(' ')[1].replace(/,/g, '.').replace(/^(d+.d+).*$/, "$1"));
+					}
+				} else {
+					if (w.navigator.plugins && w.navigator.plugins.length > 0) {
+						let swf = w.navigator.plugins['Shockwave Flash'];
+			
+						if (swf) {
+							let arr = swf.description.split(' ');
+							for (let i = 0, len = arr.length; i < len; i++) {
+								let ver = Number(arr[i]);
+			
+								if (!isNaN(ver)) {
+									flashVer = ver;
+									break;
+								}
+							}
+						}
+					}
+				}
+				return isNaN(flashVer) ? "0.0.0" : flashVer;
+			}
+
+			function fmtUrl() {
+				let url = w.location.href
+				let res = {}
+				let query = url.split("?")[1]
+				if (!query) return res
+				let arr = query.split("&")
+				if (!arr) return res
+
+				for (let i = 0; i < arr.length; i++) {
+					let item = arr[i].split("=")
+					res[item[0]] = item[1]
+				}
+
+				return res
+			}
+
 			function q(s) {
-				return d.querySelector(s)
+				return d.getElementById(s)
 			}
 
 			function getRandom() {
           	  	return Math.random().toString(16).slice(2, 8)
         	}
-
-			function getUserIp() {
-				if(typeof w == undefined) return;
-
-				let RTCPeerConnection = w.RTCPeerConnection || w.mozRTCPeerConnection || w.webkitRTCPeerConnection;
-				return new Promise(function(resolve, reject) {
-					if(RTCPeerConnection) {
-						let rtc = new RTCPeerConnection()
-						rtc.createDataChannel(''); //创建一个可以发送任意数据的数据通道
-						rtc.createOffer(function(offerDesc) { //创建并存储一个sdp数据
-							rtc.setLocalDescription(offerDesc)
-						}, function(e) {});
-						rtc.onicecandidate = function(evt) { //监听candidate事件
-							if (evt.candidate) {
-								let ipReg = /([0-9]{1,3}(\.[0-9]{1,3}){3}|[a-f0-9]{1,4}(:[a-f0-9]{1,4}){7})/;
-								let ipAddr = ipReg.exec(evt.candidate.candidate)[1];
-								if(ipAddr) resolve(ipAddr);
-								else reject("浏览器Anonymize local IPs exposed by WebRTC被禁用")
-							}
-						}
-					} else reject("请检查您当前的环境是否为浏览器环境")
-				})
-			}
-
-			getUserIp().then(function (res) {
-				ip = res;
-				setNet(0)
-			}).catch(function (err) {
-				ip = undefined
-			});
 
 			function requestImg(url) {
 				return new Promise(function(resolve, reject) {
@@ -152,24 +248,139 @@
 			function ping(url) {
 				return new Promise(function(resolve, reject) {
 					let start = new Date().getTime();
-					let res = function () {
+					function res() {
 						let time = new Date().getTime() - start;
 						resolve(time)
 					};
 					requestImg(url).then(res).catch(res);
 					setTimeout(function() {
-						reject(Error('Timeout'))
+						reject('Timeout')
 					}, 8000)
 				})
 			}
 
-			function setNet(time) {
-				q('#net').innerHTML = `<div>
-					<div>您的IP地址信息: ${ip}</div>
-					<div>网络延迟：${time ?? "err"} ms</div>
-						${time == undefined ? "<div>网络错误</div>" : ""}
-					</div>`
+			function setBasic() {
+				let html = "";
+				let n = w.navigator;
+				let u = n.userAgent;
+				let a = [
+					{l: "用户代理", v: u},
+					{l: "系统信息", v: (function() {
+						let t = [
+							["Windows NT 5.1", "WinXP"], 
+							["Windows NT 6.0", "WinVista"], 
+							["Windows NT 6.1", "Win7"], 
+							["Windows NT 5.2", "Win2003"], 
+							["Windows NT 5.0", "Win2000"], 
+							["Windows NT 10.0", "Win10"], 
+							["Macintosh", "Macintosh"], 
+							["Windows", "WinOther"], 
+							["Ubuntu", "Ubuntu"], 
+							["Android", "Android"],
+							["Linux", "Linux"],
+							["iPhone", "Iphone"],
+							["iPad", "iPad"]
+						];
+						for(let i = 0, l = t.length; i < l; i++) {
+							let item = t[i];
+							if(u.indexOf(item[0]) > -1) return item[1]
+						}
+						return "Other";
+					})()},
+					{l: "浏览器信息", v: (function() {
+						let UA = u.toLowerCase();
+						let a = [
+							[UA && /msie|trident/.test(UA), "IE"],
+							[UA && UA.indexOf('edge/') > 0, "Edge"],
+							[UA && /chrome\/\d+/.test(UA) && UA.indexOf('edge/') <= 0, "Chrome"],
+							[UA && UA.match(/firefox\/(\d+)/), "Firefox"],
+							[UA && /Safari/.test(u) && !/Chrome/.test(u), "Safari"]
+						];
+						for(let i = 0, l = a.length; i < l; i++) {
+							let item = a[i];
+							if(item[0]) return item[1];
+						}
+						return "Other";
+					})()},
+					{l: "Flash", v: getFlashVersion()},
+					{l: "Cookie状态", v: n.cookieEnabled ? "已开启" : "未开启"},
+					{l: "JavaScript状态", v: "已开启"},
+					{l: "LocalStorage状态", v: (function() {
+						try {
+							let k = "TEST_STORAGE";
+							w.localStorage.setItem(k, k);
+							w.localStorage.removeItem(k);
+							return "已开启"
+						} catch(e) {
+							return "未开启"
+						}
+					})()}
+				];
+				for(let i = 0, l = a.length; i < l; i++) {
+					html += `<li>
+						<span class="li-label">${a[i].l}:&nbsp;</span>
+						<span class="li-value">${a[i].v}</span>
+					</li>`;
+				}
+				q("basicInfoList").innerHTML = html;
 			}
+
+			setBasic();
+
+			let query = fmtUrl();
+			let networkList = [
+				{l: "百度", u: "www.baidu.com", v: "", type: 0},
+				{l: "google", u: "www.google.com", v: "", type: 0},
+				{l: "本地DNS", v: "", type: 1},
+				{l: "本地IP", v: "", type: 2}
+			];
+
+			function setNetwork() {
+
+				q("networkInfoList").innerHTML = "";
+
+				function drawNetworkItem(index, val) {
+					let li = document.createElement("li");
+					li.innerHTML = `<span class="li-label">${networkList[index].l}:&nbsp;</span>
+						<span class="li-value">${val || networkList[index].v}</span>`;
+					q("networkInfoList").appendChild(li);
+				}
+				
+				for(let i = 0, l = networkList.length; i < l; i++) {
+					if(networkList[i].type == 0) {
+						networkList[i].v = pingItem;
+						networkList[i].v(networkList[i].u, function(time) {drawNetworkItem(i, time)});
+					} else if(networkList[i].type == 2) {
+						networkList[i].v = function() {
+							let timer = setInterval(function() {
+								if(w.returnCitySN && w.returnCitySN.cip) {
+									clearInterval(timer);
+									drawNetworkItem(i, w.returnCitySN.cip + w.returnCitySN.cname);
+								}
+							}, 16);
+						}
+						networkList[i].v();
+					} else {
+						networkList[i].v = function() {
+							let timer = setTimeout(function() {
+								clearTimeout(timer);
+								drawNetworkItem(i, query.dns || "暂无")
+							}, 16);
+						}
+						networkList[i].v()
+					}
+				}
+			}
+
+			function pingItem(item, cb) {
+				ping("http://" + item).then(function(res) {
+					cb("延迟" + res + "ms")
+				}).catch(function(err) {
+					cb(err)
+				})
+			}
+
+			setNetwork();
 
 			function calcResponseTimes() {
 				let obj = {
@@ -202,15 +413,9 @@
 			function launchRequest(url) {
 				num++;
 				ping(url).then(function(time) {
-					let host = q("#ipAddress").value;
-					let dosNode = q('#dos');
+					let host = q("ipAddress").value;
+					let dosNode = q('dos');
 
-					if(!w.navigator.onLine) {
-						setNet();
-						return
-					}
-
-					setNet(time);
 					dosHtml = dosNode.innerHTML + `<div class="dos-item">
 						来自 ${host} 的回复:  
 						<span>耗时=${time}ms</span>
@@ -222,38 +427,57 @@
 						responseTimes.push(time);
 						setTimeout(function() {
 							launchRequest(url)
-						}, 500)
+						}, 200)
 					} else {
 						let res = calcResponseTimes();
 						dosHtml = dosNode.innerHTML +
-							`<div class="dos-item" style="margin-bottom: 30px">往返行程的估计时间(以毫秒为单位): <div class="dos-item">最短 = ${res.min}ms, 最长 = ${res.max}ms, 平均 = ${res.mean}ms</div></div>`;
+							`<div class="dos-item" style="margin-bottom: 30px">
+								往返行程的估计时间(以毫秒为单位): 
+								<div class="dos-item">
+									<span style="color: #ffffff">最短 = ${res.min}ms, 最长 = ${res.max}ms, 平均 = ${res.mean}ms</span>
+								</div>
+							</div>`;
 						dosNode.innerHTML = dosHtml;
 						num = 0;
 						responseTimes.length = 0
 					}
 
 					dosNode.scrollTop = dosNode.scrollHeight;
-				}).catch(function(err) {
-					setNet()
 				})
 			}
 
 			function run() {
-				let val = q("#ipAddress").value;
+				let val = q("ipAddress").value;
 				if(!val) return;
-				launchRequest("http://" + val)
+				if(val.indexOf("http://") > -1 || val.indexOf("https://") > -1) launchRequest(val)
+				else launchRequest("http://" + val)
 			}
 
-			q("#ping").onclick = run;
-
-			q("#clear").onclick = function() {
-				q("#net").innerHTML = "";
-				q("#dos").innerHTML = "Terminal："
+			function addAnimate(self, ani, time) {
+				self.className += ani;
+				let timer = setTimeout(function() {
+					self.className = self.className.replace(ani, "");
+				}, time || 200);
 			}
 
-			q("#ipAddress").addEventListener("keyup", function(e) {
+			q("ping").onclick = function() {
+				addAnimate(this, " btn-active");
+				run();
+			};
+
+			q("clear").onclick = function() {
+				addAnimate(this, " btn-active");
+				q("dos").innerHTML = "Terminal："
+			}
+
+			q("ipAddress").addEventListener("keyup", function(e) {
 				if (e.keyCode == 13) run()
 			})
+
+			q("networkRefresh").onclick = function() {
+				addAnimate(this, "rotate", 500);
+				setNetwork()
+			}
 		})(window, document);
 	</script>
 </body>
